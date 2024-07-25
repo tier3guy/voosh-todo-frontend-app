@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import useTask from "@/hooks/useTasks";
+import { useTasks } from "@/providers/task-provider";
 import { useState } from "react";
 
 export default function AddTaskButton() {
@@ -19,7 +19,7 @@ export default function AddTaskButton() {
     const [description, setDescription] = useState("");
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
-    const { loading, addTask } = useTask();
+    const { loading, addTask } = useTasks();
 
     return (
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>

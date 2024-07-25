@@ -17,7 +17,7 @@ export default function ProfileButton() {
     return (
         <DropdownMenu>
             <DropdownMenuTrigger className="h-9 w-9 overflow-hidden rounded-full bg-slate-50/30 grid place-content-center hover:bg-slate-50/40 z-20">
-                <User className="text-gray-100/50" />
+                <User className="text-gray-100" />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="mr-5 w-[200px]">
                 <DropdownMenuLabel>My Account</DropdownMenuLabel>

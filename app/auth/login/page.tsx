@@ -33,11 +33,11 @@ export default function Login() {
                     >
                         Sign in to your account
                     </h1>
-                    <p className="mt-1 text-center text-primary">
+                    <p className="mt-1 text-center text-primary text-blue-600">
                         Or{" "}
                         <Link
                             href="/auth/signup"
-                            className="hover:text-primary/80"
+                            className="text-blue-600  hover:underline"
                             prefetch={false}
                         >
                             register for a new account

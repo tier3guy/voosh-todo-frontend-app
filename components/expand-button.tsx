@@ -11,7 +11,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import useTask from "@/hooks/useTasks";
+import { useTasks } from "@/providers/task-provider";
 import { ITodo } from "@/interfaces";
 import { useState } from "react";
 
@@ -19,12 +19,12 @@ export default function ExpandButton({ task }: { task: ITodo }) {
     const [todo, setTodo] = useState<ITodo>(task);
     const [dialogOpen, setDialogOpen] = useState<boolean>(false);
 
-    const { updateTask, loading, deleteTask } = useTask();
+    const { updateTask, loading, deleteTask } = useTasks();
 
     return (
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger className="cursor-pointer">
-                <p className="text-sm font-medium py-2 px-6 rounded-full bg-gray-300">
+                <p className="text-sm font-medium py-[6px] px-6 rounded-full bg-gray-200">
                     Expand
                 </p>
             </DialogTrigger>

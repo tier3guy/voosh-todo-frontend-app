@@ -1,6 +1,5 @@
 "use client";
 
-import useTask from "@/hooks/useTasks";
 import { ITodo, ITodoStatus } from "@/interfaces";
 import { useEffect, useState } from "react";
 import {
@@ -10,9 +9,12 @@ import {
     Draggable,
 } from "react-beautiful-dnd";
 import ExpandButton from "./expand-button";
+import TodoCardLoader from "./todo-card-loader";
+import { useTasks } from "@/providers/task-provider";
+import { Archive } from "lucide-react";
 
 export default function TodoDND() {
-    const { tasks, updateTask } = useTask();
+    const { tasks, updateTask } = useTasks();
     const [todo, setTodo] = useState(tasks);
     const [inProgress, setInProgress] = useState(tasks);
     const [completed, setCompleted] = useState(tasks);
@@ -103,6 +105,14 @@ export function DNDSection({
                         ref={provided.innerRef}
                         {...provided.droppableProps}
                     >
+                        {data.length === 0 && (
+                            <div className="h-full flex items-center justify-center flex-col gap-1">
+                                <Archive className="text-gray-500" />
+                                <p className="text-gray-500">
+                                    No data available
+                                </p>
+                            </div>
+                        )}
                         {data.map((task: ITodo, index: number) => (
                             <DNDCard key={task._id} data={task} index={index} />
                         ))}
@@ -115,6 +125,9 @@ export function DNDSection({
 }
 
 export function DNDCard({ data, index }: { data: ITodo; index: number }) {
+    const { loading } = useTasks();
+
+    if (loading) return <TodoCardLoader />;
     return (
         <Draggable draggableId={data._id} index={index}>
             {(provided) => (
