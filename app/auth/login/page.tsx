@@ -14,18 +14,13 @@ export default function Login() {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const { loading, error, handleLogin } = useLogin();
+    const { loading, error, handleLogin, handleLoginWithGoogle } = useLogin();
 
     return (
         <div className="w-screen h-screen overflow-hidden relative">
             <div className="h-1/2 w-full bg-gradient-to-b from-blue-500 to-blue-700">
-                <div className="m-auto py-10 flex items-center flex-col">
+                <div className="py-10 flex items-center flex-col">
                     <Logo color="white" logoFull />
-                    <p className="text-slate-200 text-center mt-3 w-full md:w-[650px] px-4">
-                        Create, track, and complete tasks seamlessly to ensure
-                        you meet all your deadlines. Log in to get started and
-                        take control of your workflow today!
-                    </p>
                 </div>
             </div>
             <div className="absolute top-0 left-0 z-10 h-screen w-screen overflow-hidden grid place-content-center">
@@ -63,12 +58,27 @@ export default function Login() {
                             <Label htmlFor="email">Password</Label>
                             <Input
                                 type="password"
-                                id="email"
+                                id="password"
                                 placeholder="password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                             />
                         </div>
+
+                        <div className="flex items-center">
+                            <div className="flex-1 border" />
+                            <p className="px-4">Or</p>
+                            <div className="flex-1 border" />
+                        </div>
+
+                        <button
+                            className="flex items-center justify-center gap-3 border text-center p-3 rounded-md text-sm bg-white shadow-md"
+                            onClick={handleLoginWithGoogle}
+                            disabled={loading}
+                        >
+                            <p>Sign In with Google</p>
+                        </button>
+
                         <div className="flex items-center justify-between">
                             <div className="flex items-center">
                                 <Checkbox
@@ -107,7 +117,7 @@ export default function Login() {
                                     handleLogin(email, password);
                                 }}
                             >
-                                {loading ? "Loading..." : "Submit"}
+                                {loading ? "Loading..." : "Sign In"}
                             </Button>
                         </div>
                     </div>
