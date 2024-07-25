@@ -5,6 +5,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCookies } from "next-client-cookies";
 import { AUTH_TOKEN } from "@/constants";
+import { auth } from "@/firebase";
+import { signOut } from "firebase/auth";
 
 const useLogout = (): {
     loading: boolean;
@@ -20,6 +22,7 @@ const useLogout = (): {
 
             const res = await axios.post("/api/auth/logout");
             if (res.status === 200) {
+                signOut(auth);
                 cookies.remove(AUTH_TOKEN);
                 router.push("/auth/login");
             }
