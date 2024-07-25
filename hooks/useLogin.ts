@@ -51,8 +51,10 @@ const useLogin = (): {
             setLoading(true);
 
             const res = await signInWithPopup(auth, provider);
-            const resp = await axios.post("/api/auth/google-login", {
-                email: res?.user?.email,
+            const { email } = res.user;
+
+            const resp = await axios.post("/api/auth/login-with-google", {
+                email,
             });
             if (resp.status === 200) {
                 const { auth_token } = resp.data;
