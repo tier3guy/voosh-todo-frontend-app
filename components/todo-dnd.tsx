@@ -9,6 +9,7 @@ import {
     Droppable,
     Draggable,
 } from "react-beautiful-dnd";
+import ExpandButton from "./expand-button";
 
 export default function TodoDND() {
     const { tasks, updateTask } = useTask();
@@ -37,7 +38,7 @@ export default function TodoDND() {
         setStateById(source.droppableId, sourceList);
         setStateById(destination.droppableId, destinationList);
 
-        await updateTask(movedTask);
+        await updateTask(movedTask, undefined);
     };
 
     const getListById = (id: string): ITodo[] => {
@@ -118,19 +119,19 @@ export function DNDCard({ data, index }: { data: ITodo; index: number }) {
         <Draggable draggableId={data._id} index={index}>
             {(provided) => (
                 <div
-                    className="rounded-md bg-slate-50 border-2 py-8 px-6 z-10"
+                    className="rounded-md bg-slate-50 border-2 py-4 px-6 z-10"
                     {...provided.draggableProps}
                     {...provided.dragHandleProps}
                     ref={provided.innerRef}
                 >
-                    <h3 className="font-semibold text-lg">{data.title}</h3>
+                    <h3 className="font-semibold text-foreground">
+                        {data.title}
+                    </h3>
                     <p className="text-muted-foreground line-clamp-3 text-sm mt-2">
                         {data.description}
                     </p>
-                    <div className="mt-8 flex items-start gap-5">
-                        <button className="font-semibold underline">
-                            Expand
-                        </button>
+                    <div className="mt-4 flex items-start gap-5">
+                        <ExpandButton task={data} />
                     </div>
                 </div>
             )}
